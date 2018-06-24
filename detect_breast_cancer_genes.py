@@ -1,7 +1,7 @@
 '''
 AUTHOR: Koen Rademaker
 FILE: detect_breast_cancer_genes.py
-VERSION: 0.2
+VERSION: 1.0
 DATE: 24/jun/2018
 FUNCTION: Detect human genes and aliases associated with breast cancer from the complete list of human cancer genes (n = 8159)
 '''
@@ -56,8 +56,9 @@ def generate_output(result_dictionary):
         print('Gene:\t',instance_symbol,'\nAliases:',result_dictionary.get(instance_symbol),'\n')
     print('-------------------------------------------------')
 
-# Gathers data, visualizes the number of aliases for breast cancer genes and the number of occurrences per alias in pie charts.
+# Gathers data, visualizes the number of aliases for breast cancer genes and the number of occurrences per alias in pie charts
 def visualize(result_dictionary):
+    # Visualize first chart (aliases)
     chart_1_labels = []
     chart_1_values = []
     for instance_symbol in result_dictionary.keys():
@@ -70,7 +71,7 @@ def visualize(result_dictionary):
     ax1.axis('equal')
     plt.title('Figure 1 - Number of aliases for breast cancer-associated genes', y=1.1)
     fig1.savefig('Figure 1.svg', bbox_inches='tight')
-
+    # Visualize second chart (alias occurrences)
     chart_2_labels = []
     chart_2_values = []
     for instance_symbol in result_dictionary.keys():
