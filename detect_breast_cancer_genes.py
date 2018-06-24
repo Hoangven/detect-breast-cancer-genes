@@ -1,8 +1,8 @@
 '''
 AUTHOR: Koen Rademaker
 FILE: detect_breast_cancer_genes.py
-VERSION: 0.1
-DATE: 10/feb/2018
+VERSION: 0.2
+DATE: 24/jun/2018
 FUNCTION: Detect human genes and aliases associated with breast cancer from the complete list of human cancer genes (n = 8159)
 '''
 import matplotlib.pyplot as plt
@@ -11,7 +11,7 @@ import re
 # Terms can be expanded to widen search
 regular_expression_terms = ['breast cancer', 'breast carcinoma', 'ductal carcinoma']
 # File has to be ordered by columns 'Symbol', 'Description', 'Chromosome', 'Aliases'
-file_location = 'human_cancer_genes.txt'
+file_location = 'Data/human_cancer_genes.txt'
 
 # Loads and processes list of human cancer genes from .txt file, returns instance data as dictionary
 def read_file(file_location):
@@ -36,7 +36,7 @@ def read_file(file_location):
     except FileNotFoundError:
         print('ERROR: FILE NOT FOUND, CHECK THE FILE LOCATION')
 
-# Searches human cancer genes for matches with breast cancer terms, returns symbol and aliases for matching genes as dictionary   
+# Searches human cancer genes for matches with breast cancer terms, returns symbol and aliases for matching genes as dictionary
 def search(data_dictionary):
     result_dictionary = {}
     for instance_symbol in data_dictionary.keys():
@@ -55,7 +55,7 @@ def generate_output(result_dictionary):
     for instance_symbol in result_dictionary.keys():
         print('Gene:\t',instance_symbol,'\nAliases:',result_dictionary.get(instance_symbol),'\n')
     print('-------------------------------------------------')
-   
+
 # Gathers data, visualizes the number of aliases for breast cancer genes and the number of occurrences per alias in pie charts.
 def visualize(result_dictionary):
     chart_1_labels = []
@@ -70,7 +70,7 @@ def visualize(result_dictionary):
     ax1.axis('equal')
     plt.title('Figure 1 - Number of aliases for breast cancer-associated genes', y=1.1)
     fig1.savefig('Figure 1.svg', bbox_inches='tight')
-    
+
     chart_2_labels = []
     chart_2_values = []
     for instance_symbol in result_dictionary.keys():
@@ -100,7 +100,7 @@ def visualize(result_dictionary):
     ax2.axis('equal')
     plt.title('Figure 2 - Number of occurrences of aliases for breast cancer-associated genes', y=1.1)
     fig2.savefig('Figure 2.svg', bbox_inches='tight')
-    
+
 # Generates text to visualize inside a pie chart
 def make_autopct(values):
     def autopct(pct):
@@ -118,5 +118,5 @@ def main():
         visualize(human_breast_cancer_genes)
     except AttributeError:
         print('ERROR: SEARCHING FILE FAILED, CHECK THE FILE LOCATION')
-        
+
 main()
